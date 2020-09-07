@@ -20,12 +20,14 @@ namespace rtw_vect {
     class vector {
 
         public:
-        
+            /* Constructors & Assignment operators */
             vector(std::size_t sz = 5);
             vector(vector const &rhs);
             vector(vector &&rhs)                    noexcept;
             vector& operator=(vector const &rhs);
             vector& operator=(vector const &&rhs)   noexcept;
+
+            /* Main functions */
             void push_back(T const& val);
             void pop_back();
 
@@ -33,10 +35,12 @@ namespace rtw_vect {
             T const & operator[](std::size_t idx);
 
         private:
+            /* Internal members */
             std::size_t     size__;
             std::size_t     len__;
             T              *mem_buff__;
 
+            /* Helper functions */
             void swap(vector &rhs)                  noexcept;
     };
 
