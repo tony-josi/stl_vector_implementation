@@ -13,9 +13,32 @@
 #ifndef __VECT_IMPL__HEADER__
 #define __VECT_IMPL__HEADER__
 
+/* namespace: Reinventing the wheel (rtw) vector */
 namespace rtw_vect {
 
-    
+    template<typename T>
+    class vector {
+
+        public:
+        
+            vector(std::size_t sz = 5);
+            vector(vector const &rhs);
+            vector(vector &&rhs)                    noexcept;
+            vector& operator=(vector const &rhs);
+            vector& operator=(vector const &&rhs)   noexcept;
+            void push_back(T const& val);
+            void pop_back();
+
+            T & operator[](std::size_t idx);
+            T const & operator[](std::size_t idx);
+
+        private:
+            std::size_t     size__;
+            std::size_t     len__;
+            T              *mem_buff__;
+
+            void swap(vector &rhs)                  noexcept;
+    };
 
 }
 
