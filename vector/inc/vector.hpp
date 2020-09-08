@@ -13,6 +13,9 @@
 #ifndef __VECT_IMPL__HEADER__
 #define __VECT_IMPL__HEADER__
 
+#include <type_traits>
+#include <memory>
+
 /* namespace: Reinventing the wheel (rtw) vector */
 namespace rtw_vect {
 
@@ -26,10 +29,28 @@ namespace rtw_vect {
                 :size__         {     sz  }
                 ,len__          {     0   }
                 ,mem_buff__     {     static_cast<T *>(::operator new(sizeof(T) * size__))   } {
+            }
+
+            vector(vector const &rhs)
+                :size__         {   rhs.size__  }
+                ,len__          {   0           }
+                ,mem_buff__     {   static_cast<T *>(::operator new(sizeof(T) * size__))    } {
+
+                try {
+                    for(std::size_t i = 0; i < rhs.len__; ++i)
+                        push_back(rhs.mem_buff__[i]);
+                }
+                catch(...) {
+
+                    std::unique_ptr<T, t_buff_destrutor>      dctor_obj(mem_buff__, t_buff_destrutor());
+                    destroy_items<T>();
+                    throw;
+
+                }
 
             }
 
-            vector(vector const &rhs);
+
             vector(vector &&rhs)                    noexcept;
             vector& operator=(vector const &rhs);
             vector& operator=(vector const &&rhs)   noexcept;
@@ -49,6 +70,32 @@ namespace rtw_vect {
 
             /* Helper functions */
             void swap(vector &rhs)                  noexcept;
+
+            template <typename U>
+            typename std::enable_if <(std::is_trivially_destructible <U>::value == false), void>::type
+            destroy_items() {
+
+                for(std::size_t i = len__ - 1; i >= 0; --i)
+                    mem_buff__[i].~T();
+            
+            }
+
+            template <typename U>
+            typename std::enable_if <(std::is_trivially_destructible <U>::value == true), void>::type
+            destroy_items() {
+
+                return;
+            
+            }
+
+            struct t_buff_destructot {
+
+                void operator()(T *buff)    const {
+                    ::operator delete(buff);
+                }
+
+            }
+            
     };
 
 }
