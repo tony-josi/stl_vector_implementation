@@ -1,6 +1,6 @@
 
 /** 
- *  @file   vector.ghpp
+ *  @file   vector.hpp
  *  @brief  Vector implementation header.
  *
  *  This file contains the Header Code for the vector Implementation.
@@ -16,7 +16,7 @@
 /* namespace: Reinventing the wheel (rtw) vector */
 namespace rtw_vect {
 
-    template<typename T>
+    template <typename T>
     class vector {
 
         public:
