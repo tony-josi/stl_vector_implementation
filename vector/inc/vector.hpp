@@ -15,6 +15,7 @@
 
 #include <type_traits>
 #include <memory>
+#include <iostream>
 
 /* namespace: Reinventing the wheel (rtw) vector */
 namespace rtw_vect {
@@ -29,6 +30,7 @@ namespace rtw_vect {
                 :size__         {     sz  }
                 ,len__          {     0   }
                 ,mem_buff__     {     static_cast<T *>(::operator new(sizeof(T) * size__))   } {
+                    std::cout<<"Invoked\n";
             }
 
             vector(vector const &rhs)
