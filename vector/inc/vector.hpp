@@ -49,7 +49,7 @@ namespace rtw_vect {
                     delete the allocated memory */
                     std::unique_ptr<T, t_buff_destrutor>      dctor_obj(mem_buff__, t_buff_destrutor());
 
-                    /* SFINAE based overload for destroying individual items */
+                    /* SFINAE based overload for destroying individual elements */
                     destroy_items<T>();
 
                     /* finally throw exception */
@@ -61,7 +61,7 @@ namespace rtw_vect {
 
             vector& operator=(vector const &rhs) {
                 
-                /* SFINAE based overload for copying items based on T*/
+                /* SFINAE based overload for copying elements based on T */
                 copy_assign<T>(rhs);
                 return *this;
             
@@ -98,6 +98,7 @@ namespace rtw_vect {
             typename std::enable_if <(std::is_trivially_destructible <U>::value == false), void>::type
             destroy_items() {
 
+                /* Call destructor of each element in reverse order. */
                 for(std::size_t i = len__ - 1; i >= 0; --i)
                     mem_buff__[i].~T();
             
@@ -107,6 +108,7 @@ namespace rtw_vect {
             typename std::enable_if <(std::is_trivially_destructible <U>::value == true), void>::type
             destroy_items() {
 
+                /* Nothing to do, as each elements are trivially destructible */
                 return;
             
             }
@@ -125,7 +127,7 @@ namespace rtw_vect {
                     return;
 
                 if(size__ <= rhs.len__) {
-                    /* clear the previous items */
+                    /* clear the previous elements */
                     destroy_items<T>();
                     /* resuse the destination memory */
                     len__ = 0;
