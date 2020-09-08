@@ -88,7 +88,8 @@ namespace rtw_vect {
             
             }
 
-            struct t_buff_destructot {
+            /* Functor for destroying the memory buffer */
+            struct t_buff_destructor {
 
                 void operator()(T *buff)    const {
                     ::operator delete(buff);
