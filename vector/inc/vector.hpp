@@ -60,9 +60,9 @@ namespace rtw_vect {
             }
 
             vector& operator=(vector const &rhs) {
-
-                vector<T> copy(rhs);
-                swap(copy);
+                
+                /* SFINAE based overload for copying items based on T*/
+                copy_assign<T>(rhs);
                 return *this;
             
             }
