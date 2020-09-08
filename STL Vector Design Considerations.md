@@ -12,3 +12,7 @@ This implementation of the `vector` container class will rely [SFINAE](https://e
 * `length` current number of items in the buffer
 * `size` total size of the buffer
 
+## Changes
+
+* copy assign template (sfinae overload) funtion argument is made const apart from no const in example.
+
