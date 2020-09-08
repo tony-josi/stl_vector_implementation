@@ -20,8 +20,15 @@ namespace rtw_vect {
     class vector {
 
         public:
+            
             /* Constructors & Assignment operators */
-            vector(std::size_t sz = 5);
+            vector(std::size_t sz = 5)
+                :size__         {     sz  }
+                ,len__          {     0   }
+                ,mem_buff__     {     static_cast<T *>(::operator new(sizeof(T) * size__))   } {
+
+            }
+
             vector(vector const &rhs);
             vector(vector &&rhs)                    noexcept;
             vector& operator=(vector const &rhs);
