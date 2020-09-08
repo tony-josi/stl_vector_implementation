@@ -37,13 +37,22 @@ namespace rtw_vect {
                 ,mem_buff__     {   static_cast<T *>(::operator new(sizeof(T) * size__))    } {
 
                 try {
+
+                    /* push_back each element to the destination object (lhs) 
+                    from rhs object */
                     for(std::size_t i = 0; i < rhs.len__; ++i)
                         push_back(rhs.mem_buff__[i]);
+                
                 }
                 catch(...) {
-
+                    /* Delete mem_buff__  before throwing, uses t_buff_destrutor() functor to 
+                    delete the allocated memory */
                     std::unique_ptr<T, t_buff_destrutor>      dctor_obj(mem_buff__, t_buff_destrutor());
+
+                    /* SFINAE based overload for destroying individual items */
                     destroy_items<T>();
+
+                    /* finally throw exception */
                     throw;
 
                 }
