@@ -47,7 +47,7 @@ namespace rtw_vect {
                 catch(...) {
                     /* Delete mem_buff__  before throwing, uses t_buff_destrutor() functor to 
                     delete the allocated memory */
-                    std::unique_ptr<T, t_buff_destrutor>      dctor_obj(mem_buff__, t_buff_destrutor());
+                    std::unique_ptr<T, t_buff_destructor>      dctor_obj(mem_buff__, t_buff_destructor());
 
                     /* SFINAE based overload for destroying individual elements */
                     destroy_items<T>();
@@ -76,7 +76,7 @@ namespace rtw_vect {
             void pop_back();
 
             T & operator[](std::size_t idx);
-            T const & operator[](std::size_t idx);
+            T const & operator[](std::size_t idx)   const;
 
         private:
             /* Internal members */
@@ -131,7 +131,7 @@ namespace rtw_vect {
                     destroy_items<T>();
                     /* resuse the destination memory */
                     len__ = 0;
-                    fpr(std::size_t i = 0; i < rhs.len__; ++i)
+                    for(std::size_t i = 0; i < rhs.len__; ++i)
                         push_back__(rhs[i]);
                 }
                 else {
@@ -163,7 +163,7 @@ namespace rtw_vect {
                     ::operator delete(buff);
                 }
 
-            }
+            };
             
     };
 
