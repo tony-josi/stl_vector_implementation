@@ -15,7 +15,15 @@
 
 #include <type_traits>
 #include <memory>
-#include <iostream>
+
+#define  __VECT_IMPL_DEBUG_OP 
+
+#ifdef  __VECT_IMPL_DEBUG_OP 
+    #include <iostream>
+    #define     _rtw_DEBUG_OP(_str__)    std::cout<<_str__;
+#else
+    #define     _rtw_DEBUG_OP(_str__)
+#endif
 
 /* namespace: Reinventing the wheel (rtw) vector */
 namespace rtw_vect {
@@ -30,7 +38,7 @@ namespace rtw_vect {
                 :size__         {     sz  }
                 ,len__          {     0   }
                 ,mem_buff__     {     static_cast<T *>(::operator new(sizeof(T) * size__))   } {
-                    std::cout<<"Invoked\n";
+                    _rtw_DEBUG_OP("Default ctor\n");
             }
 
             vector(vector const &rhs)
