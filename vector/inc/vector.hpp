@@ -31,12 +31,14 @@ namespace rtw_vect {
     #define     _rtw_DEBUG_OP(_str__)
 #endif      /* __VECT_IMPL_DEBUG_OP */
 
+    /* Vector class */
     template <typename T>
     class vector {
 
         public:
             
             /* Constructors & Assignment operators */
+
             vector(std::size_t sz = 5)
                 :size__         {     sz  }
                 ,len__          {     0   }
@@ -80,11 +82,11 @@ namespace rtw_vect {
             
             }
 
-
             vector(vector &&rhs)                    noexcept;
             vector& operator=(vector const &&rhs)   noexcept;
 
-            /* Main functions */
+            /* Public member functions */
+
             void push_back(T const& val) {
 
                 if(len__ == size__)
