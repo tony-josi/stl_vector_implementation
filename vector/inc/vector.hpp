@@ -100,12 +100,16 @@ namespace rtw_vect {
             T const & operator[](std::size_t idx)   const;
 
         private:
-            /* Internal members */
+
+            /* Internal data members */
+
             std::size_t     size__;
             std::size_t     len__;
             T              *mem_buff__;
 
-            /* Helper functions */
+
+            /* Internal helper member functions */
+
             void swap(vector &rhs)                  noexcept {
 
                 using std::swap;
@@ -244,9 +248,7 @@ namespace rtw_vect {
                 }
 
             };
-            
     };
-
 }
 
 #endif /* __VECT_IMPL__HEADER__ */
