@@ -83,7 +83,12 @@ namespace rtw_vect {
             vector& operator=(vector const &&rhs)   noexcept;
 
             /* Main functions */
-            void push_back(T const& val);
+            void push_back(T const& val) {
+
+
+
+            }
+
             void pop_back();
 
             T & operator[](std::size_t idx);
@@ -191,6 +196,21 @@ namespace rtw_vect {
 
                 new (mem_buff__ + len__) T(std::move<val>);
                 ++len__;
+
+            }
+
+            void resize__() {
+
+                std::size_t new_size = std::max(2, size__ * 2);
+                reserve_n_copy(new_size);
+
+            }
+
+            void reserve_n_copy(std::size_t new_sz) {
+
+                vector<T> temp_vect(new_sz);
+                copy_items<T>(temp_vect);
+                temp_vect.swap(*this);
 
             }
 
