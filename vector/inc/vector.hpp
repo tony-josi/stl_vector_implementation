@@ -15,6 +15,7 @@
 
 #include <type_traits>
 #include <memory>
+#include <algorithm>
 
 #define  __VECT_IMPL_DEBUG_OP 
 
@@ -164,7 +165,34 @@ namespace rtw_vect {
 
             }
 
-            void push_back__(T const& val);
+            template <typename U>
+            typename std::enable_if <(std::is_nothrow_move_constructible <U>::value == true), void>::type
+            copy_items(vector<T> &dest) {
+                
+                std::for_each(mem_buff__, mem_buff__ + len__, [&dest](T &item){dest.push_back_move__(std::move(item));});
+
+            }
+
+            template <typename U>
+            typename std::enable_if <(std::is_nothrow_move_constructible <U>::value == false), void>::type
+            copy_items(vector<T> &dest) {
+
+                std::for_each(mem_buff__, mem_buff__ + len__, [&dest](T const &item){dest.push_back_copy__(item);});
+                
+            }
+
+            void push_back_copy__(T const &val) {
+
+                new (mem_buff__ + len__) T(val);
+                ++len__;
+
+            }
+            void push_back_move__(T &&val) {
+
+                new (mem_buff__ + len__) T(std::move<val>);
+                ++len__;
+
+            }
 
             /* Functor for destroying the memory buffer */
             struct t_buff_destructor {
