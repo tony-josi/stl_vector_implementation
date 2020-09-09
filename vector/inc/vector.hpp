@@ -37,7 +37,7 @@ namespace rtw_vect {
 
         public:
             
-            /* Constructors & Assignment operators */
+            /* Constructors, Assignment operators & Destructor. */
 
             vector(std::size_t sz = 5)
                 :size__         {     sz  }
@@ -84,6 +84,18 @@ namespace rtw_vect {
 
             vector(vector &&rhs)                    noexcept;
             vector& operator=(vector const &&rhs)   noexcept;
+
+            ~vector() {
+
+                /* Using std::unique_ptr for ensuring resource
+                deallocation even if exception occur during the destruction of
+                individual vector elements. 
+                NOTE: For std::unique_ptr<T> the type doesn't need pointer operator (*) 
+                as std::unique_ptr is itself a pointer. */
+                std::unique_ptr<T, t_buff_destructor>   dctor_obj(mem_buff__, t_buff_destructor());
+                destroy_items<T>();
+
+            }
 
             /* Public member functions */
 
