@@ -15,6 +15,8 @@
 
 #include <type_traits>
 #include <memory>
+#include <stdexcept>
+#include <iterator>
 #include <algorithm>
 
 #define  __VECT_IMPL_DEBUG_OP 
@@ -197,14 +199,14 @@ namespace rtw_vect {
             }
             void push_back_move__(T &&val) {
 
-                new (mem_buff__ + len__) T(std::move<val>);
+                new (mem_buff__ + len__) T(std::move(val));
                 ++len__;
 
             }
 
             void resize__() {
 
-                std::size_t new_size = std::max(2, size__ * 2);
+                std::size_t new_size = std::max(static_cast<std::size_t>(2), size__ * 2);
                 reserve_n_copy__(new_size);
 
             }
