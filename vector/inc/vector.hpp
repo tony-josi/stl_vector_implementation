@@ -179,6 +179,8 @@ namespace rtw_vect {
             typename std::enable_if <(std::is_nothrow_move_constructible <U>::value == true), void>::type
             copy_items(vector<T> &dest) {
                 
+                /* if the vector type, T is nothrow_move_constructible 
+                then move the elements to the buffer */
                 std::for_each(mem_buff__, mem_buff__ + len__, [&dest](T &item){dest.push_back_move__(std::move(item));});
 
             }
@@ -187,18 +189,27 @@ namespace rtw_vect {
             typename std::enable_if <(std::is_nothrow_move_constructible <U>::value == false), void>::type
             copy_items(vector<T> &dest) {
 
+                /* if the vector type, T is not nothrow_move_constructible 
+                then copy the elements to the buffer */
                 std::for_each(mem_buff__, mem_buff__ + len__, [&dest](T const &item){dest.push_back_copy__(item);});
                 
             }
 
+            /* Initialisation of memory using copy constructor of T. */
             void push_back_copy__(T const &val) {
 
+                /* Initialise T object in location (mem_buff__ + len__) 
+                using placement new and copy constructor of T. */
                 new (mem_buff__ + len__) T(val);
                 ++len__;
 
             }
+
+            /* Initialisation of memory using move constructor of T. */
             void push_back_move__(T &&val) {
 
+                /* Initialise T object in location (mem_buff__ + len__) 
+                using placement new and move constructor of T. */
                 new (mem_buff__ + len__) T(std::move(val));
                 ++len__;
 
@@ -206,6 +217,8 @@ namespace rtw_vect {
 
             void resize__() {
 
+                /* Calculate new vector size and do allocation and 
+                copying of old data back to resized vector. */
                 std::size_t new_size = std::max(static_cast<std::size_t>(2), size__ * 2);
                 reserve_n_copy__(new_size);
 
@@ -213,7 +226,11 @@ namespace rtw_vect {
 
             void reserve_n_copy__(std::size_t new_sz) {
 
+                /* Create temporary vector with new size. */
                 vector<T> temp_vect(new_sz);
+
+                /* Copy previous items to the temporary vector 
+                and swap with *this. */
                 copy_items<T>(temp_vect);
                 temp_vect.swap(*this);
 
