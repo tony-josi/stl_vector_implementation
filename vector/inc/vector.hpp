@@ -91,7 +91,7 @@ namespace rtw_vect {
                 deallocation even if exception occur during the destruction of
                 individual vector elements. 
                 NOTE: For std::unique_ptr<T> the type doesn't need pointer operator (*) 
-                as std::unique_ptr is itself a pointer. */
+                as type inside std::unique_ptr class itself is a pointer. */
                 std::unique_ptr<T, t_buff_destructor>   dctor_obj(mem_buff__, t_buff_destructor());
                 destroy_items<T>();
                 _rtw_DEBUG_OP("Dctor\n");
