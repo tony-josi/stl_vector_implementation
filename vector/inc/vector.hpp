@@ -94,6 +94,7 @@ namespace rtw_vect {
                 as std::unique_ptr is itself a pointer. */
                 std::unique_ptr<T, t_buff_destructor>   dctor_obj(mem_buff__, t_buff_destructor());
                 destroy_items<T>();
+                _rtw_DEBUG_OP("Dctor\n");
 
             }
 
