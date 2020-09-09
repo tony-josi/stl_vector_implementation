@@ -85,7 +85,10 @@ namespace rtw_vect {
             /* Main functions */
             void push_back(T const& val) {
 
+                if(len__ == size__)
+                    resize__();
 
+                push_back_copy__(val);
 
             }
 
@@ -202,11 +205,11 @@ namespace rtw_vect {
             void resize__() {
 
                 std::size_t new_size = std::max(2, size__ * 2);
-                reserve_n_copy(new_size);
+                reserve_n_copy__(new_size);
 
             }
 
-            void reserve_n_copy(std::size_t new_sz) {
+            void reserve_n_copy__(std::size_t new_sz) {
 
                 vector<T> temp_vect(new_sz);
                 copy_items<T>(temp_vect);
