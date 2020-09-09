@@ -18,18 +18,18 @@
 #include <stdexcept>
 #include <iterator>
 #include <algorithm>
-
-#define  __VECT_IMPL_DEBUG_OP 
-
-#ifdef  __VECT_IMPL_DEBUG_OP 
-    #include <iostream>
-    #define     _rtw_DEBUG_OP(_str__)    std::cout<<_str__;
-#else
-    #define     _rtw_DEBUG_OP(_str__)
-#endif
+#include <iostream>
 
 /* namespace: Reinventing the wheel (rtw) vector */
 namespace rtw_vect {
+
+#define     __VECT_IMPL_DEBUG_OP 
+
+#ifdef      __VECT_IMPL_DEBUG_OP 
+    #define     _rtw_DEBUG_OP(_str__)    std::cout<<_str__;
+#else
+    #define     _rtw_DEBUG_OP(_str__)
+#endif      /* __VECT_IMPL_DEBUG_OP */
 
     template <typename T>
     class vector {
