@@ -72,9 +72,13 @@ namespace rtw_vect {
 
                 }
 
+                _rtw_DEBUG_OP("Copy ctor\n");
+
             }
 
             vector& operator=(vector const &rhs) {
+
+                _rtw_DEBUG_OP("Copy assign. ctor\n");
                 
                 /* SFINAE based overload for copying elements based on T */
                 copy_assign<T>(rhs);
@@ -111,8 +115,13 @@ namespace rtw_vect {
 
             void pop_back();
 
-            T & operator[](std::size_t idx);
-            T const & operator[](std::size_t idx)   const;
+            T & operator[](std::size_t idx) {
+                return mem_buff__[idx];
+            }
+            
+            T const & operator[](std::size_t idx)   const {
+                return mem_buff__[idx];
+            }
 
         private:
 
@@ -172,7 +181,7 @@ namespace rtw_vect {
                     /* resuse the destination memory */
                     len__ = 0;
                     for(std::size_t i = 0; i < rhs.len__; ++i)
-                        push_back__(rhs[i]);
+                        push_back_copy__(rhs[i]);
                 }
                 else {
                     /* If there isnt enough memory then allocate again */
