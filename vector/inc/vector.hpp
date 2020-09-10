@@ -91,6 +91,9 @@ namespace rtw_vect {
                 ,len__          {   0   }
                 ,mem_buff__     {   nullptr } {
 
+                /* Swap the resources so that rhs object will have 
+                no resources pointed by it and also reset the len__ to zero as the destroy_items()
+                won't try to free those moved elements. */
                 rhs.swap(*this);
                 _rtw_DEBUG_OP("Move ctor\n");
 
@@ -100,6 +103,8 @@ namespace rtw_vect {
 
                 rhs.swap(*this);
                 _rtw_DEBUG_OP("Move assign. ctor\n");
+
+                /* Return the current object. */
                 return *this;
 
             }
