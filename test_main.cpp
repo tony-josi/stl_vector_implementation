@@ -23,6 +23,10 @@ int main() {
 
     std::cout<<"After move\n";
 
+    /* Testing pop_back() */
+    moved_obj.pop_back();
+    moved_obj.push_back(0xFCCD);
+    
     for(int i = 0; i < 19; ++i) 
         std::cout<<i<<".    "<<moved_obj[i]<<"\n";
 
