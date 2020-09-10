@@ -86,8 +86,21 @@ namespace rtw_vect {
             
             }
 
-            vector(vector &&rhs)                    noexcept;
-            vector& operator=(vector const &&rhs)   noexcept;
+            vector(vector &&rhs)                    noexcept 
+                :size__         {   0   }
+                ,len__          {   0   }
+                ,mem_buff__     {   nullptr } {
+
+                rhs.swap(*this);
+
+            }
+
+            vector& operator=(vector &&rhs)         noexcept {
+
+                rhs.swap(*this);
+                return *this;
+
+            }
 
             ~vector() {
 
@@ -118,7 +131,7 @@ namespace rtw_vect {
             T & operator[](std::size_t idx) {
                 return mem_buff__[idx];
             }
-            
+
             T const & operator[](std::size_t idx)   const {
                 return mem_buff__[idx];
             }
@@ -148,8 +161,8 @@ namespace rtw_vect {
             destroy_items() {
 
                 /* Call destructor of each element in reverse order. */
-                for(std::size_t i = len__ - 1; i >= 0; --i)
-                    mem_buff__[i].~T();
+                for(std::size_t i = len__; i > 0; --i)
+                    mem_buff__[i - 1].~T();
             
             }
 
