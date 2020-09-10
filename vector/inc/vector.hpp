@@ -92,12 +92,14 @@ namespace rtw_vect {
                 ,mem_buff__     {   nullptr } {
 
                 rhs.swap(*this);
+                _rtw_DEBUG_OP("Move ctor\n");
 
             }
 
             vector& operator=(vector &&rhs)         noexcept {
 
                 rhs.swap(*this);
+                _rtw_DEBUG_OP("Move assign. ctor\n");
                 return *this;
 
             }
