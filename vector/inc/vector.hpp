@@ -133,7 +133,13 @@ namespace rtw_vect {
 
             }
 
-            void pop_back();
+            void pop_back() {
+
+                --len__;
+                /* Calling T's destructor on the deleted object. */
+                mem_buff__[len__].~T();
+
+            }
 
             T & operator[](std::size_t idx) {
                 return mem_buff__[idx];
