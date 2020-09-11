@@ -113,6 +113,18 @@ namespace rtw_vect {
                 :size__         {   static_cast<size_t>(std::distance(std::begin(i_list), std::end(i_list)))     }
                 ,len__          {   0   }
                 ,mem_buff__     {   static_cast<T *>(::operator new(sizeof(T) * size__))    } {
+                    
+                    /* Calculates number of elements in the list,
+                    allocates memory, and copy those elements  to
+                    the object.
+                    */
+
+                    /*
+                    std::begin:
+
+                    template< class C > 
+                    auto begin( C& c ) -> decltype(c.begin());
+                    */
 
                     for(auto i = std::begin(i_list); i < std::end(i_list); ++i)
                         push_back_copy__(*i);
