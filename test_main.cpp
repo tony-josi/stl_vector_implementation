@@ -26,8 +26,16 @@ int main() {
     /* Testing pop_back() */
     moved_obj.pop_back();
     moved_obj.push_back(0xFCCD);
-    
+
     for(int i = 0; i < 19; ++i) 
         std::cout<<i<<".    "<<moved_obj[i]<<"\n";
+
+    vector<int> init_list_vec {4,5,6,7,8,8,23,65};
+    for(int i = 0; i < 7; ++i) 
+        std::cout<<i<<".    "<<init_list_vec[i]<<"\n";
+
+    vector<std::string> init_list_vec_str {"Hi", "My", "Name", "Is", "TONY"};
+    for(int i = 0; i < 5; ++i) 
+        std::cout<<i<<".    "<<init_list_vec_str[i]<<"\n";
 
 }
