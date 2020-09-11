@@ -35,7 +35,8 @@ int main() {
         std::cout<<i<<".    "<<init_list_vec[i]<<"\n";
 
     vector<std::string> init_list_vec_str {"Hi", "My", "Name", "Is", "TONY"};
-    init_list_vec_str.push_back("Josi");
+    //init_list_vec_str.push_back("Josi");
+    init_list_vec_str[5] = "Josi";
     for(int i = 0; i < 6; ++i) 
         std::cout<<i<<".    "<<init_list_vec_str[i]<<"\n";
 
