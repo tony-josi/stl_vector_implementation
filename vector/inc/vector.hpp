@@ -163,12 +163,35 @@ namespace rtw_vect {
 
             }
 
+            /* Array operators */
+
             T & operator[](std::size_t idx) {
                 return mem_buff__[idx];
             }
 
             T const & operator[](std::size_t idx)   const {
                 return mem_buff__[idx];
+            }
+
+
+            /* Validated access */
+
+            T & at(std::size_t idx) {
+
+                if(len__ <= idx)
+                    throw std::out_of_range("RTW::VECTOR out of range");
+
+                return mem_buff__[idx];
+
+            }
+
+            T const & at(std::size_t idx)           const {
+
+                if(len__ <= idx)
+                    throw std::out_of_range("RTW::VECTOR out of range");
+
+                return mem_buff__[idx];
+
             }
 
         private:
