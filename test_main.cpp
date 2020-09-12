@@ -1,3 +1,15 @@
+
+/** 
+ *  @file   test_main.cpp
+ *  @brief  Vector implementation test cases.
+ *
+ *  This file contains tests for the vector Implementation.
+ *
+ *  @author         Tony Josi   https://tonyjosi97.github.io/profile/
+ *  @copyright      Copyright (C) 2020 Tony Josi
+ *  @bug            No known bugs.
+ */
+
 #include <iostream>
 #include "vector/inc/vector.hpp"
 
