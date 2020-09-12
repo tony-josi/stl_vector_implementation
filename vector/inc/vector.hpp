@@ -151,6 +151,9 @@ namespace rtw_vect {
                 if(len__ == size__)
                     resize__();
 
+                /* Use internal push back function
+                that uses copy constructor of T to copy the input
+                opject 'val' into the heap memory allocated to the vector. */
                 push_back_copy__(val);
 
             }
@@ -160,6 +163,19 @@ namespace rtw_vect {
                 if(len__ == size__)
                     resize__();
 
+                /* Use internal push back function
+                that uses move constructor of T to move the input
+                opject 'val' into the heap memory allocated to the vector. */
+                
+                /* 
+                
+                if 'std::forward' is not used val will be deduced as a lvalue. 
+
+                "all named values (such as function parameters) always 
+                evaluate as lvalues (even those declared as rvalue references)"
+                    -- http://www.cplusplus.com/reference/utility/forward/ 
+                
+                */
                 push_back_move__(std::forward<T>(val));
 
             }
@@ -170,6 +186,11 @@ namespace rtw_vect {
                 if(len__ == size__)
                     resize__();
 
+                /* Use internal push back emblace function
+                that uses normal constructor of T to create the new
+                opject directly into the heap memory allocated to the vector
+                based on the variadic arguments 'args'. */
+                /* 'std::forward' is used for perfect forwarding the arguments to deduced types. */
                 push_back_emblace__(std::forward<Args>(args)...);
 
             }
@@ -349,6 +370,10 @@ namespace rtw_vect {
             template <typename... Args>
             void push_back_emblace__(Args &&... args) {
 
+                /* Initialise T object in location (mem_buff__ + len__) 
+                using placement new and normal constructor of T using
+                variadic arguments 'args'. */
+                /* 'std::forward' is used for perfect forwarding the arguments to deduced types. */
                 new (mem_buff__ + len__) T(std::forward<Args>(args)...);
                 ++len__;
 
