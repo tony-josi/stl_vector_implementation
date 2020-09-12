@@ -146,12 +146,21 @@ namespace rtw_vect {
 
             /* Public member functions */
 
-            void push_back(T const& val) {
+            void push_back(T const &val) {
 
                 if(len__ == size__)
                     resize__();
 
                 push_back_copy__(val);
+
+            }
+
+            void push_back(T &&val) {
+
+                if(len__ == size__)
+                    resize__();
+
+                push_back_move__(val);
 
             }
 
