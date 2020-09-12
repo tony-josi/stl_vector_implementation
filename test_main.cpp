@@ -40,4 +40,6 @@ int main() {
     for(int i = 0; i < 6; ++i) 
         std::cout<<i<<".    "<<init_list_vec_str.at(i)<<"\n";
 
+    vect_int.reserve(200);
+
 }

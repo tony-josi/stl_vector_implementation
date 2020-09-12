@@ -43,7 +43,7 @@ namespace rtw_vect {
                 :size__         {     sz  }
                 ,len__          {     0   }
                 ,mem_buff__     {     static_cast<T *>(::operator new(sizeof(T) * size__))   } {
-                    _rtw_DEBUG_OP("Default ctor\n");
+                    _rtw_DEBUG_OP("Default ctor: "<<size__<<"\n");
             }
 
             vector(vector const &rhs)
@@ -162,6 +162,19 @@ namespace rtw_vect {
                 mem_buff__[len__].~T();
 
             }
+
+
+            /* Reserve memory */
+
+            void reserve(std::size_t new_sz) {
+
+                /* Reserve only if the new size is greater
+                than the current size. */
+                if(size__ < new_sz)
+                    reserve_n_copy__(new_sz);
+
+            }
+
 
             /* Array operators */
 
