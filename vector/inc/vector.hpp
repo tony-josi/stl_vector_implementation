@@ -160,7 +160,7 @@ namespace rtw_vect {
                 if(len__ == size__)
                     resize__();
 
-                push_back_move__(val);
+                push_back_move__(std::forward<T>(val));
 
             }
 

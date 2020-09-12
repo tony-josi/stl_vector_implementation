@@ -20,6 +20,13 @@ class test_class {
                 std::cout<<"Copy test_class ctor\n";
         }
 
+        test_class(test_class &&rhs) 
+            :x{rhs.x}
+            ,y{rhs.y}
+            ,z{rhs.z} {
+                std::cout<<"Move test_class ctor\n";
+        }
+
     private:
         int x, y, z;
 };
@@ -79,4 +86,16 @@ int main() {
     vector<test_class> test_cls_vect;
     test_cls_vect.emblace_back(1,2,3);
     test_cls_vect.push_back(test_class{3,4,5});
+
+    std::cout<<"---------------------------------------------------------\n";
+    std::cout<<"\t\tTesting Move Push Back\n";
+    std::cout<<"---------------------------------------------------------\n";
+
+    test_class mov_candidate(7,8,9);
+    test_cls_vect.push_back(std::move(mov_candidate));
+
+    std::cout<<"---------------------------------------------------------\n";
+    std::cout<<"\t\tTesting Done Destroying... \n";
+    std::cout<<"---------------------------------------------------------\n";
+
 }
