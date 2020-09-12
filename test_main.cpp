@@ -4,7 +4,7 @@
 using namespace rtw_vect;
 
 int main() {
-
+#if 0
     vector<int> vect_int;
     for(int i = 0; i < 19; ++i) 
         vect_int.push_back(23 * (i + 1));
@@ -41,5 +41,8 @@ int main() {
         std::cout<<i<<".    "<<init_list_vec_str.at(i)<<"\n";
 
     vect_int.reserve(200);
+#endif
+
+
 
 }

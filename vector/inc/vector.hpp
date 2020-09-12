@@ -155,6 +155,16 @@ namespace rtw_vect {
 
             }
 
+            template <typename... Args>
+            void emblace_back(Args &&... args) {
+
+                if(len__ == size__)
+                    resize__();
+
+                push_back_emblace__(std::forward(args)...);
+
+            }
+
             void pop_back() {
 
                 --len__;
@@ -323,6 +333,14 @@ namespace rtw_vect {
                 /* Initialise T object in location (mem_buff__ + len__) 
                 using placement new and move constructor of T. */
                 new (mem_buff__ + len__) T(std::move(val));
+                ++len__;
+
+            }
+
+            template <typename... Args>
+            void push_back_emblace__(Args &&... args) {
+
+                new (mem_buff__ + len__) T(std::forward(args)...);
                 ++len__;
 
             }
