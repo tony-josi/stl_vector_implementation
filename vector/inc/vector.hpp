@@ -161,7 +161,7 @@ namespace rtw_vect {
                 if(len__ == size__)
                     resize__();
 
-                push_back_emblace__(std::forward(args)...);
+                push_back_emblace__(std::forward<Args>(args)...);
 
             }
 
@@ -340,7 +340,7 @@ namespace rtw_vect {
             template <typename... Args>
             void push_back_emblace__(Args &&... args) {
 
-                new (mem_buff__ + len__) T(std::forward(args)...);
+                new (mem_buff__ + len__) T(std::forward<Args>(args)...);
                 ++len__;
 
             }
