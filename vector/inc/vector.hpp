@@ -285,6 +285,8 @@ namespace rtw_vect {
             from the potential overload candidate set. Thus, exactly one function
             will be matching at compile time.  
 
+                            -- http://www.cplusplus.com/reference/type_traits/enable_if/
+
             The template parameter name T cannot be reused here because: A template-parameter 
             shall not be redeclared within its scope (including nested scopes). 
             A template- parameter shall not have the same name as the template name.
