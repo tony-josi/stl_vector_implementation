@@ -279,6 +279,12 @@ namespace rtw_vect {
 
             To make SFINAE work, the functions should be template functions.
 
+            std::enable_if::type is defined only if the condition (first argument 
+            inside the <> of the std::enable_if) is true, thus SFINAE removes those
+            funtion declarations/definitions whose types are not defined, 
+            from the potential overload candidate set. Thus, exactly one function
+            will be matching at compile time.  
+
             The template parameter name T cannot be reused here because: A template-parameter 
             shall not be redeclared within its scope (including nested scopes). 
             A template- parameter shall not have the same name as the template name.
