@@ -267,6 +267,24 @@ namespace rtw_vect {
             
             }
 
+            /*               
+                                    S F I N A E  Based  overload  deduction
+                                    ---------------------------------------
+
+            Substitution failure is not an error (SFINAE) - invalid substitution of 
+            template parameters is not in itself an error. 
+
+            std::enable_if relies on the SFINAE principle to deduce whether given overloaded
+            functions are considered potential overload candidate set.  
+
+            To make SFINAE work, the functions should be template functions.
+
+            The template parameter name T cannot be reused here because: A template-parameter 
+            shall not be redeclared within its scope (including nested scopes). 
+            A template- parameter shall not have the same name as the template name.
+            
+            */
+
             template <typename U>
             typename std::enable_if <(std::is_trivially_destructible <U>::value == false), void>::type
             destroy_items() {
