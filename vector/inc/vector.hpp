@@ -197,9 +197,13 @@ namespace rtw_vect {
 
             void pop_back() {
 
-                --len__;
-                /* Calling T's destructor on the deleted object. */
-                mem_buff__[len__].~T();
+                if(len__ > 0) {
+                    --len__;
+                    /* Calling T's destructor on the deleted object. */
+                    mem_buff__[len__].~T();
+                } else
+                    _rtw_DEBUG_OP("No popback -> len__ <= 0\n");
+                
 
             }
 

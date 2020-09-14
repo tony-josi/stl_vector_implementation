@@ -107,6 +107,12 @@ int main() {
     test_cls_vect.push_back(std::move(mov_candidate));
 
     std::cout<<"---------------------------------------------------------\n";
+    std::cout<<"\t\tTesting pop_back \n";
+    std::cout<<"---------------------------------------------------------\n";
+    vector<int> pop_test;
+    pop_test.pop_back();
+
+    std::cout<<"---------------------------------------------------------\n";
     std::cout<<"\t\tTesting Done Destroying... \n";
     std::cout<<"---------------------------------------------------------\n";
 
