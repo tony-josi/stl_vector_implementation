@@ -53,7 +53,7 @@ namespace rtw_vect {
                     multiple call to destructors on the same object, 
                     which can occur in different scenarios as the delete[] will also
                     call the destructor on all elements regardless of whether 
-                    it was destroyed already, say, for example via pop_back().
+                    it was destroyed previously, say, for example via pop_back().
 
                     A possible scenario that causes above issue:
 
