@@ -68,6 +68,8 @@ namespace rtw_vect {
                     4. Thus delete is called twice on the same memory location 
                     causing undefined behaviour.
 
+                                    -- https://stackoverflow.com/q/17344727/6792356
+
                     */
 
                     _rtw_DEBUG_OP("Default ctor: "<<size__<<"\n");
