@@ -139,7 +139,7 @@ namespace rtw_vect {
             }
 
             vector(std::initializer_list<T> const &i_list)
-                :size__         {   static_cast<size_t>(std::distance(std::begin(i_list), std::end(i_list)))     }
+                :size__         {   static_cast<std::size_t>(std::distance(std::begin(i_list), std::end(i_list)))     }
                 ,len__          {   0   }
                 ,mem_buff__     {   static_cast<T *>(::operator new(sizeof(T) * size__))    } {
                     
