@@ -39,6 +39,23 @@ class test_class {
                 std::cout<<"Move test_class ctor\n";
         }
 
+        test_class & operator=(const test_class &rhs) {
+            x = rhs.x;
+            y = rhs.y;
+            z = rhs.z;
+            std::cout<<"Copy assign. test_class ctor\n";
+            return *this;
+        }
+
+        
+        test_class & operator=(test_class &&rhs) {
+            x = rhs.x;
+            y = rhs.y;
+            z = rhs.z;
+            std::cout<<"Move assign. test_class ctor\n";
+            return *this;
+        }
+        
     private:
         int x, y, z;
 };
@@ -113,7 +130,15 @@ int main() {
     pop_test.pop_back();
 
     std::cout<<"---------------------------------------------------------\n";
+    std::cout<<"\t\tTesting ctor type called during temp assignment\n";
+    std::cout<<"---------------------------------------------------------\n";
+
+    test_class tc(1,2,3);
+    tc = test_class(3,4,5);
+
+    std::cout<<"---------------------------------------------------------\n";
     std::cout<<"\t\tTesting Done Destroying... \n";
     std::cout<<"---------------------------------------------------------\n";
+
 
 }
