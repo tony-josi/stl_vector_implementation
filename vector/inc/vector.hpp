@@ -280,7 +280,7 @@ namespace rtw_vect {
 
             }
 
-            /* Status & Comparisson Functions */
+            /* Status & Comparisson Functions/Operators */
 
             std::size_t size()                      const {
 
@@ -291,7 +291,21 @@ namespace rtw_vect {
             bool empty()                            const {
 
                 return cur_len__ == 0;
+
+            }
+
+            bool operator==(const vector<T> &rhs)   const {
+
+                _rtw_DEBUG_OP("Uses ==\n");
+                return ((size() == rhs.size()) && \
+                (std::equal(mem_buff__, mem_buff__ + cur_len__, rhs.mem_buff__)));
                 
+            }
+
+            bool operator!=(const vector<T> &rhs)   const {
+
+                return !(*this == rhs);
+
             }
 
         private:

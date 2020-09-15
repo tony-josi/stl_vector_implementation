@@ -85,7 +85,19 @@ int main() {
 
     vector<double> vect_float_copy_assign;
     vect_float_copy_assign = vect_float;
-    vect_float.pop_back();
+    //vect_float.pop_back();
+
+    std::cout<<"---------------------------------------------------------\n";
+    std::cout<<"\t\tTesting == & != \n";
+    std::cout<<"---------------------------------------------------------\n";
+
+    if(vect_float_copy_assign == vect_float)
+        std::cout<<"Copy assigns equal\n";
+
+    if(vect_float_copy_assign != vect_float)
+        std::cout<<"Copy assigns not equal\n";
+    else
+        std::cout<<"Copy assigns equal\n";
 
     std::cout<<"---------------------------------------------------------\n";
     std::cout<<"\t\tTesting Move Constructor. \n";
