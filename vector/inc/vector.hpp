@@ -358,7 +358,7 @@ namespace rtw_vect {
                 if(this == &rhs)
                     return;
 
-                if(size__ <= rhs.len__) {
+                if(size__ >= rhs.len__) {
                     /* clear the previous elements */
                     destroy_items<T>();
                     /* resuse the destination memory */

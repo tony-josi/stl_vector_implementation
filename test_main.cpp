@@ -75,6 +75,17 @@ int main() {
     for(int i = 0; i < 19; ++i) 
         std::cout<<i<<".    "<<vect_int_copy[i]<<"\n";
 
+    std::cout<<"---------------------------------------------------------\n";
+    std::cout<<"\t\tTesting Copy Assign. \n";
+    std::cout<<"---------------------------------------------------------\n";
+
+    vector<float> vect_float;
+    for(int i = 0; i < 1000; ++i)
+        vect_float.push_back(3.14 * i);
+
+    vector<float> vect_float_copy_assign;
+    vect_float_copy_assign = vect_float;
+    vect_float.pop_back();
 
     std::cout<<"---------------------------------------------------------\n";
     std::cout<<"\t\tTesting Move Constructor. \n";
