@@ -8,32 +8,19 @@ set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set (CMAKE_CXX_FLAGS "-Ofast -ggdb3 -pedantic -Wall -Wextra -Wcast-align -Wcast-qual \
--Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self \
--Wmissing-declarations -Wmissing-include-dirs \
--Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow \
--Wsign-conversion -Wsign-promo -Wstrict-overflow=5 \
--Wswitch-default -Wundef -Wno-unused \
--pedantic-errors -Wextra -Waggregate-return -Wcast-align \
--Wcast-qual -Wconversion \
--Wdisabled-optimization \
--Wfloat-equal -Wformat=2 \
--Wformat-nonliteral -Wformat-security  \
--Wformat-y2k \
--Wimplicit  -Wimport  -Winit-self  -Winline \
--Winvalid-pch   \
--Wlong-long \
--Wmissing-field-initializers -Wmissing-format-attribute   \
--Wmissing-include-dirs -Wmissing-noreturn \
--Wpacked -Wpointer-arith \
--Wredundant-decls \
--Wshadow -Wstack-protector \
--Wstrict-aliasing=2 -Wswitch-default \
--Wswitch-enum \
--Wunreachable-code -Wunused \
--Wunused-parameter \
--Wvariadic-macros \
--Wwrite-strings")
+add_compile_options(-Ofast -ggdb3 -Wpedantic -Wall -Wextra)
+add_compile_options(-Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization) 
+add_compile_options(-Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs) 
+add_compile_options(-Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow)
+add_compile_options(-Wsign-conversion -Wsign-promo -Wstrict-overflow=5 -Wswitch-default) 
+add_compile_options(-Wundef -Wno-unused -pedantic-errors -Wextra -Waggregate-return)
+add_compile_options(-Wcast-align -Wcast-qual -Wconversion -Wdisabled-optimization -Wfloat-equal)
+add_compile_options(-Wformat=2 -Wformat-nonliteral -Wformat-security  -Wformat-y2k -Wimplicit)  
+add_compile_options(-Wimport  -Winit-self  -Winline -Winvalid-pch -Wlong-long) 
+add_compile_options(-Wmissing-field-initializers -Wmissing-format-attribute -Wmissing-include-dirs)
+add_compile_options(-Wmissing-noreturn -Wpacked -Wpointer-arith -Wredundant-decls -Wshadow) 
+add_compile_options(-Wstack-protector -Wstrict-aliasing=2 -Wswitch-default -Wswitch-enum)
+add_compile_options(-Wunreachable-code -Wunused -Wunused-parameter -Wvariadic-macros -Wwrite-strings)
 
 include_directories(vector/inc)
 
