@@ -63,8 +63,8 @@ class test_class {
 int main() {
 
     vector<int> vect_int;
-    for(int i = 0; i < 19; ++i) 
-        vect_int.push_back(23 * (i + 1));
+    for(std::size_t i = 0; i < 19; ++i) 
+        vect_int.push_back(static_cast<int>(23 * (i + 1)));
 
     vector<int> vect_int_copy(vect_int);
     vector<int> vect_int_copy_assign;
@@ -72,18 +72,18 @@ int main() {
 
     std::cout<<"Before move\n";
 
-    for(int i = 0; i < 19; ++i) 
+    for(std::size_t i = 0; i < 19; ++i) 
         std::cout<<i<<".    "<<vect_int_copy[i]<<"\n";
 
     std::cout<<"---------------------------------------------------------\n";
     std::cout<<"\t\tTesting Copy Assign. \n";
     std::cout<<"---------------------------------------------------------\n";
 
-    vector<float> vect_float;
+    vector<double> vect_float;
     for(int i = 0; i < 1000; ++i)
         vect_float.push_back(3.14 * i);
 
-    vector<float> vect_float_copy_assign;
+    vector<double> vect_float_copy_assign;
     vect_float_copy_assign = vect_float;
     vect_float.pop_back();
 
@@ -100,11 +100,11 @@ int main() {
     moved_obj.pop_back();
     moved_obj.push_back(0xFCCD);
 
-    for(int i = 0; i < 19; ++i) 
+    for(std::size_t i = 0; i < 19; ++i) 
         std::cout<<i<<".    "<<moved_obj[i]<<"\n";
 
     vector<int> init_list_vec {4,5,6,7,8,8,23,65};
-    for(int i = 0; i < 7; ++i) 
+    for(std::size_t i = 0; i < 7; ++i) 
         std::cout<<i<<".    "<<init_list_vec[i]<<"\n";
 
     std::cout<<"---------------------------------------------------------\n";
@@ -114,7 +114,7 @@ int main() {
     vector<std::string> init_list_vec_str {"Hi", "My", "Name", "Is", "TONY"};
     init_list_vec_str.push_back("Josi");
     init_list_vec_str.at(5) = "JOSI";
-    for(int i = 0; i < 6; ++i) 
+    for(std::size_t i = 0; i < 6; ++i) 
         std::cout<<i<<".    "<<init_list_vec_str.at(i)<<"\n";
 
     vect_int.reserve(200);
