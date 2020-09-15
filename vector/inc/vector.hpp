@@ -280,6 +280,20 @@ namespace rtw_vect {
 
             }
 
+            /* Status & Comparisson Functions */
+
+            std::size_t size()                      const {
+
+                return cur_len__;
+
+            } 
+
+            bool empty()                            const {
+
+                return cur_len__ == 0;
+                
+            }
+
         private:
 
             /* Internal data members */
