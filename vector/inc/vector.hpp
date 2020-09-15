@@ -49,7 +49,7 @@ namespace rtw_vect {
                     operator new wont call the constructor for T during allocation
                     and destructor for T during deallocation. 
                     
-                    This is infact will fix a major error caused due to
+                    This infact will fix a major error caused due to
                     multiple call to destructors on the same object, 
                     which can occur in different scenarios as the delete[] will also
                     call the destructor on all elements regardless of whether 
@@ -61,10 +61,10 @@ namespace rtw_vect {
                     destructor ( ~T() ) of T will delete the heap memory as usual. 
                     2. If vector<T> calls pop_back it will call the destructor of T
                     on the last element of the vector.
-                    3. Also during the destruction of the vector the delete[] will 
+                    3. Also during the destruction of the vector, the delete[] will 
                     again call destructor of T for the same object, which was deleted
                     in step 2. This happens for example when vector goes out of scope or
-                    destroyed soon after a pop_back.
+                    destroyed, soon after a pop_back.
                     4. Thus delete is called twice on the same memory location 
                     causing undefined behaviour.
 
