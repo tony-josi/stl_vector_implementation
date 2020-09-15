@@ -41,7 +41,7 @@ namespace rtw_vect {
 
             vector(std::size_t sz = 5)
                 :size__         {     sz  }
-                ,len__          {     0   }
+                ,cur_len__      {     0   }
                 ,mem_buff__     {     static_cast<T *>(::operator new(sizeof(T) * size__))   } {
 
                     /* 
@@ -77,14 +77,14 @@ namespace rtw_vect {
 
             vector(vector const &rhs)
                 :size__         {   rhs.size__  }
-                ,len__          {   0           }
+                ,cur_len__      {   0           }
                 ,mem_buff__     {   static_cast<T *>(::operator new(sizeof(T) * size__))    } {
 
                 try {
 
                     /* push_back each element to the destination object (lhs) 
                     from rhs object */
-                    for(std::size_t i = 0; i < rhs.len__; ++i)
+                    for(std::size_t i = 0; i < rhs.cur_len__; ++i)
                         push_back(rhs.mem_buff__[i]);
                 
                 }
@@ -117,11 +117,11 @@ namespace rtw_vect {
 
             vector(vector &&rhs)                    noexcept 
                 :size__         {   0   }
-                ,len__          {   0   }
+                ,cur_len__      {   0   }
                 ,mem_buff__     {   nullptr } {
 
                 /* Swap the resources so that rhs object will have 
-                no resources pointed by it and also reset the len__ to zero as the destroy_items()
+                no resources pointed by it and also reset the cur_len__ to zero as the destroy_items()
                 won't try to free those moved elements. */
                 rhs.swap(*this);
                 _rtw_DEBUG_OP("Move ctor\n");
@@ -140,7 +140,7 @@ namespace rtw_vect {
 
             vector(std::initializer_list<T> const &i_list)
                 :size__         {   static_cast<std::size_t>(std::distance(std::begin(i_list), std::end(i_list)))     }
-                ,len__          {   0   }
+                ,cur_len__      {   0   }
                 ,mem_buff__     {   static_cast<T *>(::operator new(sizeof(T) * size__))    } {
                     
                     /* Calculates number of elements in the list,
@@ -177,7 +177,7 @@ namespace rtw_vect {
 
             void push_back(T const &val) {
 
-                if(len__ == size__)
+                if(cur_len__ == size__)
                     resize__();
 
                 /* Use internal push back function
@@ -189,7 +189,7 @@ namespace rtw_vect {
 
             void push_back(T &&val) {
 
-                if(len__ == size__)
+                if(cur_len__ == size__)
                     resize__();
 
                 /* Use internal push back function
@@ -212,7 +212,7 @@ namespace rtw_vect {
             template <typename... Args>
             void emblace_back(Args &&... args) {
 
-                if(len__ == size__)
+                if(cur_len__ == size__)
                     resize__();
 
                 /* Use internal push back emblace function
@@ -226,12 +226,12 @@ namespace rtw_vect {
 
             void pop_back() {
 
-                if(len__ > 0) {
-                    --len__;
+                if(cur_len__ > 0) {
+                    --cur_len__;
                     /* Calling T's destructor on the deleted object. */
-                    mem_buff__[len__].~T();
+                    mem_buff__[cur_len__].~T();
                 } else
-                    _rtw_DEBUG_OP("No popback -> len__ <= 0\n");
+                    _rtw_DEBUG_OP("No popback -> cur_len__ <= 0\n");
                 
 
             }
@@ -264,7 +264,7 @@ namespace rtw_vect {
 
             T & at(std::size_t idx) {
 
-                if(len__ <= idx)
+                if(cur_len__ <= idx)
                     throw std::out_of_range("RTW::VECTOR out of range");
 
                 return mem_buff__[idx];
@@ -273,7 +273,7 @@ namespace rtw_vect {
 
             T const & at(std::size_t idx)           const {
 
-                if(len__ <= idx)
+                if(cur_len__ <= idx)
                     throw std::out_of_range("RTW::VECTOR out of range");
 
                 return mem_buff__[idx];
@@ -285,7 +285,7 @@ namespace rtw_vect {
             /* Internal data members */
 
             std::size_t     size__;
-            std::size_t     len__;
+            std::size_t     cur_len__;
             T              *mem_buff__;
 
 
@@ -295,7 +295,7 @@ namespace rtw_vect {
 
                 using std::swap;
                 swap(size__,        rhs.size__);
-                swap(len__,         rhs.len__);
+                swap(cur_len__,     rhs.cur_len__);
                 swap(mem_buff__,    rhs.mem_buff__);
             
             }
@@ -331,7 +331,7 @@ namespace rtw_vect {
             destroy_items() {
 
                 /* Call destructor of each element in reverse order. */
-                for(std::size_t i = len__; i > 0; --i)
+                for(std::size_t i = cur_len__; i > 0; --i)
                     mem_buff__[i - 1].~T();
             
             }
@@ -358,12 +358,12 @@ namespace rtw_vect {
                 if(this == &rhs)
                     return;
 
-                if(size__ >= rhs.len__) {
+                if(size__ >= rhs.cur_len__) {
                     /* clear the previous elements */
                     destroy_items<T>();
                     /* resuse the destination memory */
-                    len__ = 0;
-                    for(std::size_t i = 0; i < rhs.len__; ++i)
+                    cur_len__ = 0;
+                    for(std::size_t i = 0; i < rhs.cur_len__; ++i)
                         push_back_copy__(rhs[i]);
                 }
                 else {
@@ -392,7 +392,7 @@ namespace rtw_vect {
                 
                 /* if the vector type, T is nothrow_move_constructible 
                 then move the elements to the buffer */
-                std::for_each(mem_buff__, mem_buff__ + len__, [&dest](T &item){dest.push_back_move__(std::move(item));});
+                std::for_each(mem_buff__, mem_buff__ + cur_len__, [&dest](T &item){dest.push_back_move__(std::move(item));});
 
             }
 
@@ -402,39 +402,39 @@ namespace rtw_vect {
 
                 /* if the vector type, T is not nothrow_move_constructible 
                 then copy the elements to the buffer */
-                std::for_each(mem_buff__, mem_buff__ + len__, [&dest](T const &item){dest.push_back_copy__(item);});
+                std::for_each(mem_buff__, mem_buff__ + cur_len__, [&dest](T const &item){dest.push_back_copy__(item);});
                 
             }
 
             /* Initialisation of memory using copy constructor of T. */
             void push_back_copy__(T const &val) {
 
-                /* Initialise T object in location (mem_buff__ + len__) 
+                /* Initialise T object in location (mem_buff__ + cur_len__) 
                 using placement new and copy constructor of T. */
-                new (mem_buff__ + len__) T(val);
-                ++len__;
+                new (mem_buff__ + cur_len__) T(val);
+                ++cur_len__;
 
             }
 
             /* Initialisation of memory using move constructor of T. */
             void push_back_move__(T &&val) {
 
-                /* Initialise T object in location (mem_buff__ + len__) 
+                /* Initialise T object in location (mem_buff__ + cur_len__) 
                 using placement new and move constructor of T. */
-                new (mem_buff__ + len__) T(std::move(val));
-                ++len__;
+                new (mem_buff__ + cur_len__) T(std::move(val));
+                ++cur_len__;
 
             }
 
             template <typename... Args>
             void push_back_emblace__(Args &&... args) {
 
-                /* Initialise T object in location (mem_buff__ + len__) 
+                /* Initialise T object in location (mem_buff__ + cur_len__) 
                 using placement new and normal constructor of T using
                 variadic arguments 'args'. */
                 /* 'std::forward' is used for perfect forwarding the arguments to deduced types. */
-                new (mem_buff__ + len__) T(std::forward<Args>(args)...);
-                ++len__;
+                new (mem_buff__ + cur_len__) T(std::forward<Args>(args)...);
+                ++cur_len__;
 
             }
 
