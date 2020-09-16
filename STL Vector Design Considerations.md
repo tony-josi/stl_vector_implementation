@@ -1,13 +1,3 @@
-## Class Vector
-
-This implementation of the `vector` container class will rely [SFINAE](https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error) based overload & placement new for intialisation of items.
-
-#### `private` members
-
-* `size__` total size of the buffer
-* `cur_len__` current number of items in the buffer
-* `mem_buff__` points to memory allocated for storing the elements of type `T`. (`T *mem_buff__`)
-
 #### Memory Allocation is done using `operator new`
 
 `operator new` is used instead of new operator because,
@@ -27,9 +17,5 @@ A possible scenario that causes above issue:
 3. Also during the destruction of the vector, the delete[] will again call destructor of T for the same object, which was deleted in step 2. This happens for example when vector goes out of scope or destroyed, soon after a pop_back.
 4. Thus delete is called twice on the same memory location causing undefined behaviour.
 
+
 [more](https://stackoverflow.com/q/17344727/6792356)
-
-## Changes
-
-* copy assign template (sfinae overload) funtion argument is made const apart from no const in example.
-
