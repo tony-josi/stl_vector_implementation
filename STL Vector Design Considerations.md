@@ -1,16 +1,12 @@
 ## Class Vector
 
-This implementation of the `vector` container class will rely [SFINAE](https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error) & placement new for intialisation of items.
-
-#### `public` members
-
-* All `std::vector` public members
+This implementation of the `vector` container class will rely [SFINAE](https://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error) based overload & placement new for intialisation of items.
 
 #### `private` members
 
-* `v_buff` points to memory allocated for storing the elements of type `T`. (`T *v_buff`)
-* `length` current number of items in the buffer
-* `size` total size of the buffer
+* `size__` total size of the buffer
+* `cur_len__` current number of items in the buffer
+* `mem_buff__` points to memory allocated for storing the elements of type `T`. (`T *mem_buff__`)
 
 #### Memory Allocation is done using `operator new`
 
