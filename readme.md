@@ -14,4 +14,7 @@ This implementation of the `vector` container class relies on [SFINAE](https://e
 * `cur_len__` current number of items in the buffer
 * `mem_buff__` points to memory allocated for storing the elements of type `T`. (`T *mem_buff__`)
 
+## References
+
+* [Vector - Resource Management Allocation](https://lokiastari.com/blog/2016/02/27/vector/index.html)
 
