@@ -11,7 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 if(MSVC)
     add_compile_options(/W4)
 else()
-    add_compile_options(-Ofast -ggdb3 -Wpedantic -Wall -Wextra)
+    add_compile_options(-Ofast)                     # Optimization Level
+    # add_compile_options(-ggdb3)                   # Debug symbols
+    add_compile_options(-Wpedantic -Wall -Wextra)
     add_compile_options(-Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization) 
     add_compile_options(-Wformat=2 -Winit-self -Wmissing-declarations -Wmissing-include-dirs) 
     add_compile_options(-Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow)
