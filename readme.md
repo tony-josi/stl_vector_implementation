@@ -14,7 +14,4 @@ This implementation of the `vector` container class relies on [SFINAE](https://e
 * `cur_len__` current number of items in the buffer
 * `mem_buff__` points to memory allocated for storing the elements of type `T`. (`T *mem_buff__`)
 
-## Changes
-
-* copy assign template (sfinae overload) funtion argument is made const apart from no const in example.
 

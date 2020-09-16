@@ -19,3 +19,7 @@ A possible scenario that causes above issue:
 
 
 [more](https://stackoverflow.com/q/17344727/6792356)
+
+## Changes
+
+* copy assign template (sfinae overload) funtion argument is made const apart from no const in example.
