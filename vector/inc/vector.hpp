@@ -173,6 +173,16 @@ namespace rtw_vect {
 
             }
 
+
+            void swap(vector &rhs)                  noexcept {
+
+                using std::swap;
+                swap(size__,        rhs.size__);
+                swap(cur_len__,     rhs.cur_len__);
+                swap(mem_buff__,    rhs.mem_buff__);
+            
+            }
+
             /* Public member functions */
 
             void push_back(T const &val) {
@@ -319,15 +329,6 @@ namespace rtw_vect {
 
             /* Internal helper member functions */
 
-            void swap(vector &rhs)                  noexcept {
-
-                using std::swap;
-                swap(size__,        rhs.size__);
-                swap(cur_len__,     rhs.cur_len__);
-                swap(mem_buff__,    rhs.mem_buff__);
-            
-            }
-
             /*               
                                     S F I N A E  Based  overload  deduction
                                     ---------------------------------------
@@ -374,7 +375,7 @@ namespace rtw_vect {
             }
 
             template <typename U>
-            typename std::enable_if <((std::is_trivially_destructible <U>::value &&
+            typename std::enable_if <((std::is_nothrow_destructible <U>::value &&
             std::is_nothrow_copy_constructible <U>::value) == true), void>::type
             copy_assign(vector<T> const &rhs) {
 
@@ -403,7 +404,7 @@ namespace rtw_vect {
             }
 
             template <typename U>
-            typename std::enable_if <((std::is_trivially_destructible <U>::value &&
+            typename std::enable_if <((std::is_nothrow_destructible <U>::value &&
             std::is_nothrow_copy_constructible <U>::value) == false), void>::type
             copy_assign(vector<T> const &rhs) {
                 
